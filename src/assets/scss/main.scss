@@ -1,0 +1,94 @@
+.ivu-layout-content {
+  position: relative;
+  overflow: hidden;
+  word-wrap:break-word
+}
+
+.ivu-menu-item {
+  font-size: .2rem!important;
+}
+
+.ivu-layout-sider {
+
+}
+
+.ivu-layout-header {
+  background: #fff;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.mb60 {
+  margin-bottom: 60px;
+}
+
+.mlr10 {
+  margin: 0 10px;
+}
+
+.mlr30 {
+  margin: 0 30px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.pt10 {
+  padding-top: 10px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.pd10 {
+  padding: 0 10px;
+}
+
+.flex-betwwen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.th_page {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+/** 字体区域 **/
+.font14 {
+  font-size: 15px;
+}
+
+/** canvas **/
+canvas {
+  width: 100%!important;
+}
+
+
+/** flex **/
+.t_flex_row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.t_flex_r_center {
+
+}
