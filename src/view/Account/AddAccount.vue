@@ -21,7 +21,7 @@
             </FormItem>
             <FormItem>
                 <Button type="primary" @click="queryPersonName()">添加</Button>
-                <Button @click="resetForm('payInfo')" style="margin-left: 8px">重置</Button>
+                <Button type="primary" @click="resetForm('payInfo')" style="margin-left: 8px">重置</Button>
             </FormItem>
         </Form>
     </div>

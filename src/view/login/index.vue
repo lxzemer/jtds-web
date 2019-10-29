@@ -14,7 +14,7 @@
                 </FormItem>
                 <FormItem>
                     <Button type="primary" size="midle" @click="loginSubmit()" long>登 录</Button>
-                    <Button type="primary" size="midle" @click="register()" long>注 册</Button>
+                    <Button type="primary" size="midle" @click="register()" long>注册账号</Button>
                 </FormItem>
             </Form>
         </div>

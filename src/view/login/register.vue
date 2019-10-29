@@ -1,21 +1,22 @@
 <template>
-    <div class="t_Login">
-        <!--<canvas id="triangle-lost-in-space" resize="true"></canvas>-->
-        <!--        <neon-effect :options="options"></neon-effect>-->
-        <div class="t_login_form">
-            <Form ref="loginInfo" :model="loginInfo" :label-width="80">
-                <FormItem label="账号：" prop="username">
-                    <Input type="text" size="large" v-model="loginInfo.username"></Input>
-                </FormItem>
-                <FormItem label="密码：" prop="password">
-                    <Input type="password" size="large" v-model="loginInfo.password"></Input>
-                </FormItem>
-                <FormItem label="重输密码：" prop="password">
-                    <Input type="password" size="large" v-model="loginInfo.password_2"></Input>
+    <div class="regi_top">
+        <div class="regi_form">
+            <Form ref="info" :model="loginInfo"  class="mt20" align="right">
+                <FormItem>
+                    <label>账号：</label>
+                    <Input v-model.trim="loginInfo.username" placeholder="请输入账户" style="width: 300px"></Input>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" size="large" @click="doregister()" style="width: 158px;">注 册</Button>
-                    <Button type="primary" size="large" @click="tologin()" style="width: 158px;">返回登陆</Button>
+                    <label>密码：</label>
+                    <Input v-model.trim="loginInfo.password" placeholder="请输入密码" style="width: 300px"></Input>
+                </FormItem>
+                <FormItem>
+                    <label>重输密码：</label>
+                    <Input v-model.trim="loginInfo.password_2" placeholder="请重新输入密码" style="width: 300px"></Input>
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" @click="register()">注册</Button>
+                    <Button type="primary" @click="tologin()" style="margin-left: 8px">返回登陆</Button>
                 </FormItem>
             </Form>
         </div>
@@ -31,16 +32,14 @@
                 loginInfo: {
                     username: "",
                     password: "",
-                    password_2:[
-                        { required: true, validator: validatePass2, trigger: 'blur' }
-                    ]
+                    password_2:""
                 }
             }
         },
         methods: {
             // 登录
-            doregister() {
-                if (password != password_2) {
+            register() {
+                if (this.loginInfo.password !== this.loginInfo.password_2) {
                     alert("密码不一致");
                     return;
                 }
@@ -50,7 +49,7 @@
                 }).then(res => {
                     if(res) {
                         this.$router.push({
-                            name: 'index'
+                            name: 'login'
                         });
                     }
                 }).catch(err => {
@@ -69,8 +68,8 @@
     }
 </script>
 
-<style lang="scss">
-    .t_Login {
+<style lang="scss" scoped>
+    .regi_top{
         position: fixed;
         top: 0;
         bottom: 0;
@@ -80,46 +79,17 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        /*background: url("./../../assets/images/login/background.jpg") no-repeat;*/
-        background-image: url("https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg");
+        background-image: url("/src/assets/images/github/register.jpg");
         background-attachment: fixed;
         background-size: contain;
-        .t_login_form {
-            margin-top: -150px;
-            margin-left: -60px;
-            width: 400px;
-            height: auto;
-            .dy-title {
-                /*padding: 10px;*/
-                text-align: center;
-                font-size: 30px;
-                font-weight: bolder;
-                height: 60px;
-                padding-left: 60px;
-                color: #333;
-            }
-            h3 {
-                margin-bottom: 20px;
-                padding: 0 0 0 60px;
-                font-size: 12px;
-                color: #999;
-                text-align: center;
-                font-weight: normal;
-            }
-            .login_title {
-                margin-bottom: 20px;
-                color: red;
-                font-size: 20px;
-            }
-            .ivu-form .ivu-form-item-label {
-                color: rgba(15, 15, 15, 0.99);
-            }
-            .ivu-input-large, .ivu-btn {
-                /*width: 240px;*/
-            }
-            .ivu-input-large {
-                padding: 15px 10px;
-            }
+    }
+    .regi_form{
+        margin-right: -800px;
+        margin-top: -350px;
+        width: 400px;
+        height: auto;
+        .ivu-btn{
+            width:145px;
         }
     }
 </style>
