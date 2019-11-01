@@ -34,10 +34,14 @@ export default new Router({
                   path: '/video',
                   name: 'video',
                   component: () => import('@/view/Video')
-              }, { // 账单
-                  path: '/addAccount',
-                  name: 'addAccount',
-                  component: () => import('@/view/Account/AddAccount')
+              }, { // 添加账单
+                  path: '/AddAccount',
+                  name: 'AddAccount',
+                  component: () => import('@/view/Account/AddAccount.vue')
+              }, { // 账单列表
+                  path: '/AccountList',
+                  name: 'AccountList',
+                  component: () => import('@/view/Account/AccountList.vue')
               }, { // github地址
                   path: '/github',
                   name: 'github',

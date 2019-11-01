@@ -7,7 +7,7 @@
             <h3>自闭中</h3>
             <Form ref="loginInfo" :model="loginInfo" :label-width="60">
                 <FormItem label="账号：" prop="username">
-                    <Input type="text" size="large" v-model="loginInfo.username"></Input>
+                    <Input type="text" size="large" v-model="loginInfo.signCode"></Input>
                 </FormItem>
                 <FormItem label="密码：" prop="password">
                     <Input type="password" size="large" v-model="loginInfo.password"></Input>
@@ -27,8 +27,8 @@
         data() {
             return {
                loginInfo: {
-                   username: "admin",
-                   password: "123456"
+                   signCode: "",
+                   password: ""
                },
                 options: {
                     len: 30, //五边形的单边长度

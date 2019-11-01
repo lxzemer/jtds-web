@@ -4,7 +4,7 @@
             <Form ref="info" :model="loginInfo"  class="mt20" align="right">
                 <FormItem>
                     <label>账号：</label>
-                    <Input v-model.trim="loginInfo.username" placeholder="请输入账户" style="width: 300px"></Input>
+                    <Input v-model.trim="loginInfo.signCode" placeholder="请输入账户" style="width: 300px"></Input>
                 </FormItem>
                 <FormItem>
                     <label>密码：</label>
@@ -30,7 +30,7 @@
             var validatePass2;
             return {
                 loginInfo: {
-                    username: "",
+                    signCode: "",
                     password: "",
                     password_2:""
                 }
@@ -47,7 +47,7 @@
                 ajax.post('http://localhost:9001/jtds/register', {
                     ...this.loginInfo
                 }).then(res => {
-                    if(res) {
+                    if(res.code===1) {
                         this.$router.push({
                             name: 'login'
                         });
