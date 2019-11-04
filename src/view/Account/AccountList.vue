@@ -9,7 +9,7 @@
                 <Input v-model.trim="searchInfo.createDate" placeholder="请输入登记日期"></Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="submitForm()">搜索</Button>
+                <Button type="primary" @click="queryPayInfos()">搜索</Button>
             </FormItem>
         </Form>
         <Card class="tableCard" :dis-hover="true">
@@ -34,7 +34,6 @@
         </Card>
     </div>
 </template>
-
 <script>
     export default {
         name: "AccountList",
@@ -52,7 +51,7 @@
                 columns1: [
                     {
                         title: '登记用户',
-                        key: 'name',
+                        key: 'recordUserName',
                         align: 'center',
                         minwidth: 100,
                         fixed: 'left'
@@ -60,30 +59,24 @@
                     {
                         title: '金额',
                         align: 'center',
-                        key: 'age'
+                        key: 'amt'
                     },
                     {
                         title: '涉案人员',
                         align: 'center',
                         minwidth: 180,
-                        key: 'className',
-                        render:(h, params) => {
-                            return h('div', [
-                                h('p', {
-                                }, "三年" + params.row.className + "班"),
-                            ])
-                        }
+                        key: 'involveUserName',
                     },
                     {
                         title: '登记日期',
                         align: 'center',
-                        key: 'date'
+                        key: 'createDate'
                     },
                     {
                         title: '备注',
                         width: 250,
                         align: 'center',
-                        key: 'date'
+                        key: 'remake'
                     }
                 ],
                 data1: [],
@@ -97,7 +90,7 @@
         },
         methods: {
             // 搜索
-            submitForm() {
+            queryPayInfos() {
                 this.currentPage = 1;
                 this.pageSize = 10;
                 this.getData()
@@ -107,19 +100,19 @@
                 this.$refs[formName].resetFields();
             },
             // 简单表格
-            getData() {
+            getData: function () {
                 let data = {
                     pageNum: this.currentPage,
                     pageSize: this.pageSize,
                     ...this.searchInfo
                 };
                 this.config.loading = true;
-                ajax.get('/jtds/queryPayInfos', {
+                ajax.get('http://localhost:9001/jtds/queryPayInfo', {
                     ...data
                 }).then(res => {
-                    if(res.success) {
-                        this.data1 = res.content;
-                        this.pageTotal = res.result && res.result.total ? res.result.total : 0
+                    if (res.code = 200) {
+                        this.data1 = res.content ? res.content : [];
+                        this.pageTotal = res.total ? res.total : 0;
                     }
                     setTimeout(() => {
                         this.config.loading = false;
