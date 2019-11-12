@@ -7,7 +7,7 @@
             <h3>自闭中</h3>
             <Form ref="loginInfo" :model="loginInfo" :label-width="60">
                 <FormItem label="账号：" prop="username">
-                    <Input type="text" size="large" v-model="loginInfo.signCode"></Input>
+                    <Input type="text" size="large" v-model="loginInfo.userName"></Input>
                 </FormItem>
                 <FormItem label="密码：" prop="password">
                     <Input type="password" size="large" v-model="loginInfo.password"></Input>
@@ -27,7 +27,7 @@
         data() {
             return {
                loginInfo: {
-                   signCode: "",
+                   userName: "",
                    password: ""
                },
                 options: {

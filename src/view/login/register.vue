@@ -4,7 +4,7 @@
             <Form ref="info" :model="loginInfo"  class="mt20" align="right">
                 <FormItem>
                     <label>账号：</label>
-                    <Input v-model.trim="loginInfo.signCode" placeholder="请输入账户" style="width: 300px"></Input>
+                    <Input v-model.trim="loginInfo.userName" placeholder="请输入账户" style="width: 300px"></Input>
                 </FormItem>
                 <FormItem>
                     <label>密码：</label>
@@ -30,7 +30,7 @@
             var validatePass2;
             return {
                 loginInfo: {
-                    signCode: "",
+                    userName: "",
                     password: "",
                     password_2:""
                 }

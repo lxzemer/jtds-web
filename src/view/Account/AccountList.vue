@@ -6,7 +6,12 @@
                 <Input v-model.trim="searchInfo.signCode" placeholder="请输入用户名"></Input>
             </FormItem>
             <FormItem label="登记日期：" prop="createDate" :label-width="80">
-                <Input v-model.trim="searchInfo.createDate" placeholder="请输入登记日期"></Input>
+                <el-date-picker
+                        class="input-class"
+                        v-model="value1"
+                        type="date"
+                        placeholder="选择日期">
+                </el-date-picker>
             </FormItem>
             <FormItem>
                 <Button type="primary" @click="queryPayInfos()">搜索</Button>
@@ -86,6 +91,33 @@
                     loading: false,
                     size: "small"
                 },
+                pickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                    shortcuts: [{
+                        text: '今天',
+                        onClick(picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    }, {
+                        text: '昨天',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }, {
+                        text: '一周前',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', date);
+                        }
+                    }]
+                },
+                value1: '',
+                value2: '',
             }
         },
         methods: {
@@ -156,6 +188,13 @@
         &.ivu-card {
             border: none;
             background: rgb(245, 247, 249);
+        }
+    }
+    .input-class{
+        .el-input__inner{
+            width: 162px;
+            height: 32px;
+            font-size: 10px;
         }
     }
 </style>
