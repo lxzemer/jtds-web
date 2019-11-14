@@ -2,9 +2,9 @@
     <div class="layout">
         <Layout>
             <Sider ref="sideRoute" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" class="menuSider" v-show="!isCollapsed">
-                <div class="headerImg">
+                <!--<div class="headerImg">
                     <img :src="$store.getters.basicInfo.headImg"/>
-                </div>
+                </div>-->
                 <MenuSider :menuitemClasses.sync="menuitemClasses" class="th_Menu" :isCollapsed.sync="isCollapsed"/>
             </Sider>
             <Layout>
@@ -16,8 +16,16 @@
                            &nbsp;&nbsp;&nbsp;&nbsp;
                            <ColorPicker v-model="themeBg" alpha v-show="!isCollapsed" @on-change="changeThemeColor"/>
                        </div>
+                       <div style="margin-right: 30px;">
+                           <div v-show="!isLogin">
+                            <a @click="login()">登陆</a> | <a @click="register()">注册</a>
+                           </div>
+                           <div v-show="isLogin">
+                               <a>{{name}}</a> | <a @click="logout()">退出</a>
+                           </div>
+                       </div>
                        <!-- 用户头像 -->
-                       <div v-show="!isCollapsed">
+                       <!--<div v-show="isLogin">
                            <i id="th_theme">&nbsp;</i>
                            <Avatar :src="$store.getters.basicInfo.headImg" />
                            &nbsp;
@@ -31,7 +39,7 @@
                                </DropdownMenu>
                            </Dropdown>
                            &nbsp;&nbsp;
-                       </div>
+                       </div>-->
                    </div>
                 </Header>
                 <!-- 标题   -->
@@ -52,7 +60,9 @@
             return {
                 themeBg: 'rgba(25, 190,107, .5)',
                 isCollapsed: false,
+                isLogin:true,
                 github: github,
+                name:"郭峰庆",
                 title: this.$store.getters.headTitle
             }
         },
@@ -64,7 +74,19 @@
             collapsedSider () {
                 this.$refs['sideRoute'].toggleCollapse();
             },
-
+            login(){
+                this.$router.push({
+                    name: 'login'
+                });
+            },
+            register(){
+                this.$router.push({
+                    name: 'register'
+                });
+            },
+            logout(){
+                this.isLogin = false;
+            },
             chooseDrop(name) {
                 switch (name) {
                     case 'basicInfo':
@@ -73,13 +95,10 @@
                         });
                         break;
                     case 'signout':
-                        this.$router.push({
-                            name: 'login'
-                        });
+                        this.isLogin = false;
                         break;
                     default:
                         break;
-
                 }
             }
         },

@@ -12,6 +12,8 @@
                         class="input-class1"
                         v-model="payInfo.createDate"
                         type="date"
+                        @change="dateChange"
+                        value-format="yyyy-MM-dd"
                         placeholder="选择日期">
                 </el-date-picker>
             </FormItem>
@@ -21,7 +23,7 @@
             </FormItem>
             <FormItem align="center">
                 <label v-for="(item,index) in radioData" :key="index">
-                    <input type="checkbox" :value="index" v-model="payInfo.involveUserId">{{item}}
+                    <input type="checkbox" :value="index" v-model="userId">{{item}}
                 </label>
             </FormItem>
             <FormItem>
@@ -41,11 +43,12 @@
         name: "AddAccount",
         data() {
             return {
+                userId:[],
                 payInfo: {
                     amt: "",
                     createDate: "",
                     remake:"",
-                    involveUserId:[]
+                    involveUserId:"",
                 },
                 radioData: {
                 },
@@ -81,7 +84,7 @@
         },
         methods: {
             submit: function() {
-                ajax.
+                this.payInfo.involveUserId = this.userId.join(',');
                 ajax.post('http://localhost:9001/jtds/addPayInfo', {
                     ...this.payInfo
                 }).then(res => {
@@ -108,6 +111,9 @@
                     throw new Error(err);
                 })
             },
+            dateChange(val) {
+                this.payInfo.createDate = val;
+            }
         },
     }
 </script>
