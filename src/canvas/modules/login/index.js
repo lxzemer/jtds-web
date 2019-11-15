@@ -2,5 +2,13 @@
  * Editor by duya
  * Date by 2019/1/9
  */
-const LoginCanvas = {};
-export default LoginCanvas;
+const loginInfo = {
+    name:"",
+    id:""
+}
+const isLogin = false
+
+export default {
+    loginInfo,
+    isLogin
+};

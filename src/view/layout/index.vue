@@ -17,11 +17,11 @@
                            <ColorPicker v-model="themeBg" alpha v-show="!isCollapsed" @on-change="changeThemeColor"/>
                        </div>
                        <div style="margin-right: 30px;">
-                           <div v-show="!isLogin">
+                           <div v-show="!this.isLogin">
                             <a @click="login()">登陆</a> | <a @click="register()">注册</a>
                            </div>
-                           <div v-show="isLogin">
-                               <a>{{name}}</a> | <a @click="logout()">退出</a>
+                           <div v-show="this.isLogin">
+                               <a>{{this.loginInfo.name}}</a> | <a @click="logout()">退出</a>
                            </div>
                        </div>
                        <!-- 用户头像 -->
@@ -53,6 +53,7 @@
     import github from '@/assets/images/github/github.jpg'
     import MenuSider from './components/MenuSider'
     import Page from './components/Page'
+    import LoginSte from "../../canvas/modules/login";
     export default {
         name: "TLayout",
         components: { MenuSider, Page },
@@ -60,10 +61,10 @@
             return {
                 themeBg: 'rgba(25, 190,107, .5)',
                 isCollapsed: false,
-                isLogin:true,
                 github: github,
-                name:"郭峰庆",
-                title: this.$store.getters.headTitle
+                title: this.$store.getters.headTitle,
+                isLogin: LoginSte.isLogin,
+                loginInfo : LoginSte.loginInfo
             }
         },
         methods: {
@@ -85,7 +86,9 @@
                 });
             },
             logout(){
-                this.isLogin = false;
+                isLogin = false;
+                loginInfo.id="";
+                loginInfo.name="";
             },
             chooseDrop(name) {
                 switch (name) {

@@ -1,7 +1,5 @@
 <template>
     <div class="t_Login">
-        <!--<canvas id="triangle-lost-in-space" resize="true"></canvas>-->
-<!--        <neon-effect :options="options"></neon-effect>-->
         <div class="t_login_form">
             <div class="dy-title">景田大厦1007</div>
             <h3>自闭中</h3>
@@ -22,6 +20,8 @@
 </template>
 
 <script>
+    import LoginSte from "../../canvas/modules/login";
+
     export default {
         name: "Login",
         data() {
@@ -30,18 +30,8 @@
                    userName: "",
                    password: ""
                },
-                options: {
-                    len: 30, //五边形的单边长度
-                    count: 66, //多少线重叠
-                    rate: 20, //速度 越小越快
-                    dieChance: 0.05, //单次绘画失败进行重绘的几率
-                    sparkChance: 0.1, //[0,1] 越大画出的五边形越多重
-                    sparkDist: 10, //闪烁点的距离
-                    sparkSize: 2,//闪烁点的大小
-                    contentLight: 60, // [0,100] 色块的亮度
-                    shadowToTimePropMult: 6, //五边形的内环阴影大小
-                    bgColorArr: [0, 0, 0] //背景色数组
-                }
+                isLogin: LoginSte.isLogin,
+                loginInfo : LoginSte.loginInfo,
             }
         },
         methods: {
@@ -51,7 +41,10 @@
                 ajax.post('http://localhost:9001/jtds/login', {
                     ...this.loginInfo
                 }).then(res => {
-                    if(res) {
+                    if(res.code = 200) {
+                        this.isLogin = true;
+                        this.loginInfo.id = res.content.id;
+                        this.loginInfo.name = res.content.userName;
                         this.$router.push({
                             name: 'index'
                         });
@@ -61,7 +54,6 @@
                 })
             },
             register(){
-                console.log('aa');
                 this.$router.push({
                     name: 'register'
                 });
