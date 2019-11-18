@@ -3,8 +3,12 @@
  * Date by 2019/1/9
  */
 const loginInfo = {
-    name:"",
-    id:""
+    userName:"",
+    id:"",
+    password:"",
+    createDate:"",
+    isAlive:"",
+    sysNo:""
 }
 const isLogin = false
 

@@ -2,9 +2,6 @@
     <div class="layout">
         <Layout>
             <Sider ref="sideRoute" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed" class="menuSider" v-show="!isCollapsed">
-                <!--<div class="headerImg">
-                    <img :src="$store.getters.basicInfo.headImg"/>
-                </div>-->
                 <MenuSider :menuitemClasses.sync="menuitemClasses" class="th_Menu" :isCollapsed.sync="isCollapsed"/>
             </Sider>
             <Layout>
@@ -18,29 +15,47 @@
                        </div>
                        <div style="margin-right: 30px;">
                            <div v-show="!this.isLogin">
-                            <a @click="login()">登陆</a> | <a @click="register()">注册</a>
+                               <a @click="loginClick()">登陆</a> | <a @click="registerClick()">注册</a>
+                               <el-dialog title="景田大厦1007" :visible.sync="loginOff" @close='closeDialog' center :append-to-body='true' :lock-scroll="false" width="30%">
+                                   <div class="">
+                                       <Form ref="loginInfo" :model="loginInfo" :label-width="60">
+                                           <FormItem label="账号：" prop="username">
+                                               <Input type="text" v-model="loginInfo.userName"></Input>
+                                           </FormItem>
+                                           <FormItem label="密码：" prop="password">
+                                               <Input type="password" v-model="loginInfo.password"></Input>
+                                           </FormItem>
+                                           <FormItem>
+                                               <Button type="primary"  @click="login()">登 录</Button>
+                                           </FormItem>
+                                       </Form>
+                                   </div>
+                               </el-dialog>
+                               <el-dialog title="景田大厦1007" :visible.sync="registerOff" @close='closeDialog' center :append-to-body='true' :lock-scroll="false" width="30%">
+                                   <div class="">
+                                       <Form ref="loginInfo" :model="loginInfo" :label-width="80">
+                                           <FormItem label="账号：" prop="username">
+                                               <Input type="text"  v-model="loginInfo.userName"></Input>
+                                           </FormItem>
+                                           <FormItem label="密码：" prop="password">
+                                               <Input type="password"  v-model="loginInfo.password"></Input>
+                                           </FormItem>
+                                           <FormItem label="确认密码：" prop="password_2">
+                                               <Input type="password"  v-model="password_2"></Input>
+                                           </FormItem>
+                                           <FormItem>
+                                               <Button type="primary"  @click="register()">注 册</Button>
+                                           </FormItem>
+                                       </Form>
+                                   </div>
+                               </el-dialog>
                            </div>
                            <div v-show="this.isLogin">
-                               <a>{{this.loginInfo.name}}</a> | <a @click="logout()">退出</a>
+                               <a>{{this.loginInfo.userName}}</a> | <a @click="logout()">退出</a>
                            </div>
                        </div>
-                       <!-- 用户头像 -->
-                       <!--<div v-show="isLogin">
-                           <i id="th_theme">&nbsp;</i>
-                           <Avatar :src="$store.getters.basicInfo.headImg" />
-                           &nbsp;
-                           <Dropdown placement="bottom-start" @on-click="chooseDrop">
-                               <a href="javascript:void(0)">
-                                   <Icon type="ios-arrow-down"></Icon>
-                               </a>
-                               <DropdownMenu slot="list">
-                                   <DropdownItem name="basicInfo">个人信息</DropdownItem>
-                                   <DropdownItem name="signout">退出</DropdownItem>
-                               </DropdownMenu>
-                           </Dropdown>
-                           &nbsp;&nbsp;
-                       </div>-->
                    </div>
+
                 </Header>
                 <!-- 标题   -->
                 <Page />
@@ -50,10 +65,10 @@
 </template>
 
 <script>
-    import github from '@/assets/images/github/github.jpg'
     import MenuSider from './components/MenuSider'
     import Page from './components/Page'
     import LoginSte from "../../canvas/modules/login";
+
     export default {
         name: "TLayout",
         components: { MenuSider, Page },
@@ -61,10 +76,12 @@
             return {
                 themeBg: 'rgba(25, 190,107, .5)',
                 isCollapsed: false,
-                github: github,
                 title: this.$store.getters.headTitle,
                 isLogin: LoginSte.isLogin,
-                loginInfo : LoginSte.loginInfo
+                loginInfo : LoginSte.loginInfo,
+                password_2:"",
+                loginOff: false,
+                registerOff: false,
             }
         },
         methods: {
@@ -76,33 +93,56 @@
                 this.$refs['sideRoute'].toggleCollapse();
             },
             login(){
-                this.$router.push({
-                    name: 'login'
-                });
+                ajax.post('http://localhost:9001/jtds/login', {
+                    ...this.loginInfo
+                }).then(res => {
+                    if(res.code = 200) {
+                        this.loginInfo.id = res.content.id;
+                        this.loginInfo.userName = res.content.userName;
+                        this.loginOff= false;
+                        this.isLogin = true;
+                    } else{
+                        alert(res.msg);
+                    }
+                }).catch(err => {
+                    throw new Error(err)
+                })
             },
             register(){
-                this.$router.push({
-                    name: 'register'
-                });
+                if (this.loginInfo.password !== this.password_2) {
+                    alert("密码不一致");
+                    return;
+                }
+                ajax.post('http://localhost:9001/jtds/register', {
+                    ...this.loginInfo
+                }).then(res => {
+                    if(res.code===200) {
+                        this.loginInfo.id = res.content.id;
+                        this.loginInfo.userName = res.content.userName;
+                        this.isLogin = true;
+                        this.registerOff= false;
+                    }else{
+                        alert(res.msg);
+                    }
+                }).catch(err => {
+                    throw new Error(err)
+                })
             },
             logout(){
-                isLogin = false;
-                loginInfo.id="";
-                loginInfo.name="";
+                this.isLogin = false;
+                this.loginInfo.id="";
+                this.loginInfo.userName="";
+                closeDialog();
             },
-            chooseDrop(name) {
-                switch (name) {
-                    case 'basicInfo':
-                        this.$router.push({
-                            name: 'basicInfo'
-                        });
-                        break;
-                    case 'signout':
-                        this.isLogin = false;
-                        break;
-                    default:
-                        break;
-                }
+            loginClick(){
+                this.loginOff=true;//默认页面不显示为false,点击按钮将这个属性变成true
+            },
+            registerClick(){
+                this.registerOff=true;//默认页面不显示为false,点击按钮将这个属性变成true
+            },
+            closeDialog(){
+                this.loginInfo.password="";
+                this.loginInfo.password_2="";
             }
         },
         computed: {

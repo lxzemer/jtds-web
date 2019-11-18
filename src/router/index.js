@@ -7,17 +7,8 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-      { // 登录
-        path: '/',
-        name: 'login',
-        component: () => import('@/view/login/index.vue')
-      },{ // 注册
-          path: '/register',
-          name: 'register',
-          component: () => import('@/view/login/register.vue')
-      },
       { // home页面
-          path: '/index',
+          path: '/',
           name: 'index',
           component: TLayout,
           redirect: 'home',
