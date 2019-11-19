@@ -39,7 +39,7 @@
             loginSubmit() {
                 // 测试跳转页面的方法
                 ajax.post('http://localhost:9001/jtds/login', {
-                    ...this.loginInfo
+                    ...this.loginInfo,
                 }).then(res => {
                     if(res.code = 200) {
                         this.isLogin = true;

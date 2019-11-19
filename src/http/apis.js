@@ -10,6 +10,7 @@ import route from './../router'
 import Qs from 'qs'
 // 全局显示通知
 import { Notice } from 'iview'
+import LoginSte from "../canvas/modules/login";
 
 let _that = this;
 // 封装通用的请求状态信息 错误请求统一管理
@@ -66,6 +67,25 @@ export default {
                 method: 'post',
                 url,
                 params: param
+            }).then((res) => {
+                if(res.status === 200) {
+                    resolve(res.data)
+                } else {
+                    checkStatus(res)
+                }
+            }).catch((err) => {
+                throw new Error(err)
+            })
+        })
+    },
+    // 会话post请求
+    nlPost(url, param) {
+        param.userId = LoginSte.loginInfo.id;
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url,
+                params: param,
             }).then((res) => {
                 if(res.status === 200) {
                     resolve(res.data)

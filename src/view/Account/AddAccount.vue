@@ -23,7 +23,7 @@
             </FormItem>
             <FormItem align="center">
                 <label v-for="(item,index) in radioData" :key="index">
-                    <input type="checkbox" :value="index" v-model="userId">{{item}}
+                    <input type="checkbox" :value="index" v-model="userIds">{{item}}
                 </label>
             </FormItem>
             <FormItem>
@@ -43,7 +43,7 @@
         name: "AddAccount",
         data() {
             return {
-                userId:[],
+                userIds:[],
                 payInfo: {
                     amt: "",
                     createDate: "",
@@ -84,14 +84,16 @@
         },
         methods: {
             submit: function() {
-                this.payInfo.involveUserId = this.userId.join(',');
-                ajax.post('http://localhost:9001/jtds/addPayInfo', {
+                this.payInfo.involveUserId = this.userIds.join(',');
+                ajax.nlPost('http://localhost:9001/jtds/addPayInfo', {
                     ...this.payInfo
                 }).then(res => {
-                    if(res) {
+                    if(res.code == 200) {
                         this.$router.push({
-                            name: 'index'
+                            name: 'AccountList'
                         });
+                    }else{
+                        alert(res.msg);
                     }
                 }).catch(err => {
                     throw new Error(err)
