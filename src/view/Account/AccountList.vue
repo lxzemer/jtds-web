@@ -3,20 +3,59 @@
         <TitleTip title="基础表格"></TitleTip>
         <Form ref="searchInfo" :model="searchInfo" inline class="mt20">
             <FormItem label="登记用户：" prop="signCode" :label-width="80">
-                <Input v-model.trim="searchInfo.signCode" placeholder="请输入用户名"></Input>
+                <Input v-model.trim="searchInfo.recordUserName" placeholder="请输入用户名"></Input>
             </FormItem>
             <FormItem label="登记日期：" prop="createDate" :label-width="80">
                 <el-date-picker
                         class="input-class"
-                        v-model="value1"
+                        v-model="searchInfo.payDate"
                         type="date"
                         placeholder="选择日期">
                 </el-date-picker>
             </FormItem>
             <FormItem>
                 <Button type="primary" @click="queryPayInfos()">搜索</Button>
+                <Button type="primary" @click="openAddPayInfo()">新建账单</Button>
             </FormItem>
         </Form>
+
+        <el-dialog title="添加账单" :visible.sync="isAdd" @close='resetForm' center :append-to-body='true' :lock-scroll="false" width="40%">
+            <div class="" style="margin-left: 50px;">
+                <Form ref="payInfo" :model="payInfo"  class="mt20" align="left" style="width:400px;">
+                    <FormItem>
+                        <label>金额：</label>
+                        <Input v-model.trim="payInfo.amt" placeholder="请输入金额" style="width: 300px"></Input>
+                    </FormItem>
+                    <FormItem>
+                        <label>日期：</label>
+                        <el-date-picker
+                                class="input-class1"
+                                v-model="payInfo.payDate"
+                                type="date"
+                                @change="dateChange"
+                                value-format="yyyy-MM-dd"
+                                placeholder="选择日期">
+                        </el-date-picker>
+                    </FormItem>
+                    <FormItem>
+                        <label>备注：</label>
+                        <Input v-model.trim="payInfo.remake" placeholder="请输入备注" style="width: 300px"></Input>
+                    </FormItem>
+                    <FormItem align="center">
+                        <label v-for="(item,index) in radioData" :key="index">
+                            <input type="checkbox" :value="index" v-model="userIds">{{item}}
+                        </label>
+                    </FormItem>
+                    <FormItem>
+                        <div style="margin-left: 40px;">
+                            <Button type="primary" @click="addPayInfo()">添加</Button>
+                            <Button type="primary" @click="resetForm()" style="margin-left: 8px">重置</Button>
+                        </div>
+                    </FormItem>
+                </Form>
+            </div>
+        </el-dialog>
+
         <Card class="tableCard" :dis-hover="true">
             <TableComponent
                     :columns.sync="columns1"
@@ -44,12 +83,24 @@
         name: "AccountList",
         data() {
             return {
+                //账单
+                isAdd:false,
+                userIds:[],
+                payInfo: {
+                    amt: "",
+                    payDate: "",
+                    remake:"",
+                    involveUserId:"",
+                },
+                radioData: {
+                },
+
+                //表格
                 searchInfo: {
-                    signCode: "",
-                    createDate: ""
+                    recordUserName: "",
+                    payDate: ""
                 },
                 selectTr: null,
-                // 简单表格
                 pageSize: 10,
                 currentPage: 1,
                 pageTotal: null,
@@ -73,9 +124,9 @@
                         key: 'involveUserName',
                     },
                     {
-                        title: '登记日期',
+                        title: '支出日期',
                         align: 'center',
-                        key: 'createDate'
+                        key: 'payDate'
                     },
                     {
                         title: '备注',
@@ -116,8 +167,6 @@
                         }
                     }]
                 },
-                value1: '',
-                value2: '',
             }
         },
         methods: {
@@ -127,9 +176,45 @@
                 this.pageSize = 10;
                 this.getData()
             },
+            openAddPayInfo(){
+                this.queryUserName();
+                this.isAdd = true;
+            },
+            queryUserName: function() {
+                let self = this;
+                ajax.get('http://localhost:9001/jtds/queryUserName', {
+                }).then(res => {
+                    if (res.code = 200) {
+                        let array = res.content;
+                        array.forEach(function (val) {
+                            self.$set(self.radioData, val.id, val.userName);
+                        })
+                    }
+                }).catch(err => {
+                    throw new Error(err);
+                })
+            },
+            addPayInfo: function() {
+                this.payInfo.involveUserId = this.userIds.join(',');
+                ajax.nlPost('http://localhost:9001/jtds/addPayInfo', {
+                    ...this.payInfo
+                }).then(res => {
+                    if(res.code == 200) {
+                        this.isAdd = false;
+                        this.getData();
+                    }else{
+                        alert(res.msg);
+                    }
+                }).catch(err => {
+                    throw new Error(err)
+                })
+            },
             // 重置表单
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
+            resetForm() {
+                this.payInfo.amt = "";
+                this.payInfo.remake = "";
+                this.payInfo.payDate = "";
+                this.userIds = [];
             },
             // 简单表格
             getData: function () {

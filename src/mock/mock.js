@@ -97,20 +97,13 @@ const MenuList = () => {
                 hasChild: true,
                 child: [{
                     id: '10021',
-                    menuUrl: 'AddAccount',
-                    title: '添加纪录',
-                    icon: 'ios-speedometer-outline',
-                    hasChild: false,
-                    parentId: '1002'
-                }, {
-                    id: '10022',
                     menuUrl: 'AccountList',
                     title: '账单列表',
                     icon: 'ios-speedometer-outline',
                     hasChild: false,
                     parentId: '1002'
                 }, {
-                    id: '10023',
+                    id: '10022',
                     menuUrl: '',
                     title: '账单汇总',
                     icon: 'ios-speedometer-outline',

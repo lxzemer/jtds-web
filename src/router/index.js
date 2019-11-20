@@ -25,10 +25,6 @@ export default new Router({
                   path: '/video',
                   name: 'video',
                   component: () => import('@/view/Video')
-              }, { // 添加账单
-                  path: '/AddAccount',
-                  name: 'AddAccount',
-                  component: () => import('@/view/Account/AddAccount.vue')
               }, { // 账单列表
                   path: '/AccountList',
                   name: 'AccountList',
