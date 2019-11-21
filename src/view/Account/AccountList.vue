@@ -2,10 +2,10 @@
     <div class="">
         <TitleTip title="基础表格"></TitleTip>
         <Form ref="searchInfo" :model="searchInfo" inline class="mt20">
-            <FormItem label="登记用户：" prop="signCode" :label-width="80">
+            <FormItem label="登记用户：" prop="recordUserName" :label-width="80">
                 <Input v-model.trim="searchInfo.recordUserName" placeholder="请输入用户名"></Input>
             </FormItem>
-            <FormItem label="登记日期：" prop="createDate" :label-width="80">
+            <FormItem label="登记日期：" prop="payDate" :label-width="80">
                 <el-date-picker
                         class="input-class"
                         v-model="searchInfo.payDate"
@@ -32,7 +32,6 @@
                                 class="input-class1"
                                 v-model="payInfo.payDate"
                                 type="date"
-                                @change="dateChange"
                                 value-format="yyyy-MM-dd"
                                 placeholder="选择日期">
                         </el-date-picker>
@@ -118,13 +117,13 @@
                         key: 'amt'
                     },
                     {
-                        title: '涉案人员',
+                        title: '涉及人员',
                         align: 'center',
                         minwidth: 180,
                         key: 'involveUserName',
                     },
                     {
-                        title: '支出日期',
+                        title: '支付日期',
                         align: 'center',
                         key: 'payDate'
                     },

@@ -104,7 +104,7 @@ const MenuList = () => {
                     parentId: '1002'
                 }, {
                     id: '10022',
-                    menuUrl: '',
+                    menuUrl: 'PayInfoAccount',
                     title: '账单汇总',
                     icon: 'ios-speedometer-outline',
                     hasChild: false,

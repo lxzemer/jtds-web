@@ -29,6 +29,10 @@ export default new Router({
                   path: '/AccountList',
                   name: 'AccountList',
                   component: () => import('@/view/Account/AccountList.vue')
+              }, { // 账单汇总
+                  path: '/PayInfoAccount',
+                  name: 'PayInfoAccount',
+                  component: () => import('@/view/Account/PayInfoAccount.vue')
               }, { // github地址
                   path: '/github',
                   name: 'github',
