@@ -1,7 +1,7 @@
 <template>
     <div class="">
-        <TitleTip title="基础表格"></TitleTip>
-        <Form ref="searchInfo" :model="searchInfo" inline class="mt20">
+        <TitleTip title="未结算汇总"></TitleTip>
+        <!--<Form ref="searchInfo" :model="searchInfo" inline class="mt20">
             <FormItem label="登记用户：" prop="userName" :label-width="80">
                 <Input v-model.trim="searchInfo.userName" placeholder="请输入用户名"></Input>
             </FormItem>
@@ -11,7 +11,7 @@
             <FormItem>
                 <Button type="primary" @click="queryPayAccount()">查询</Button>
             </FormItem>
-        </Form>
+        </Form>-->
 
         <Card class="tableCard" :dis-hover="true">
             <TableComponent
@@ -33,6 +33,10 @@
                 />
             </div>
         </Card>
+        <div style="width: 90%;" align="center">
+            <Button type="primary" style="width: 100px;" @click="queryPayAccount()">结&nbsp;&nbsp;&nbsp;&nbsp;算</Button>
+        </div>
+
     </div>
 </template>
 
@@ -66,27 +70,9 @@
                     },
                     {
                         title: '收/付',
-                        align: 'shouldPay',
-                        minwidth: 150,
-                        key: 'involveUserName',
-                    },
-                    {
-                        title: '账单序号',
                         align: 'center',
                         minwidth: 150,
-                        key: 'accountNo'
-                    },
-                    {
-                        title: '开始日期',
-                        minwidth: 150,
-                        align: 'center',
-                        key: 'startDate'
-                    },
-                    {
-                        title: '结束日期',
-                        minwidth: 150,
-                        align: 'center',
-                        key: 'endDate'
+                        key: 'shouldPay',
                     },
                     {
                         title: '状态',
@@ -105,11 +91,11 @@
             }
         },
         methods:{
-            queryPayAccount(){
+           /* queryPayAccount(){
                 this.currentPage = 1;
                 this.pageSize = 10;
                 this.getData()
-            },
+            },*/
             getData: function () {
                 let data = {
                     pageNum: this.currentPage,

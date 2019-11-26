@@ -85,6 +85,22 @@
             }
         },
         methods: {
+            //mutations
+            ADD_LOGIN_USER(loginInfo) {  //登入，保存状态
+                sessionStorage.setItem("id", loginInfo.id);  //添加到sessionStorage
+                sessionStorage.setItem("userName",loginInfo.userName);
+                sessionStorage.setItem("isLogin",true);
+            },
+            SIGN_OUT() {   //退出，删除状态
+                sessionStorage.removeItem("id");  //移除sessionStorage
+                sessionStorage.removeItem("userName");
+                sessionStorage.removeItem("isLogin");
+            },
+            RE_FLASH() {   //退出，删除状态
+                this.loginInfo.id = sessionStorage.getItem("id");
+                this.loginInfo.userName = sessionStorage.getItem("userName");
+                this.isLogin = sessionStorage.getItem("isLogin");
+            },
             // 得到取色器的颜色
             changeThemeColor(theme) {
                 this.$store.dispatch('changeThemeColor', theme)
@@ -101,6 +117,7 @@
                         this.loginInfo.userName = res.content.userName;
                         this.loginOff= false;
                         this.isLogin = true;
+                        this.ADD_LOGIN_USER(this.loginInfo);
                     } else{
                         alert(res.msg);
                     }
@@ -116,7 +133,7 @@
                 ajax.post('http://localhost:9001/jtds/register', {
                     ...this.loginInfo
                 }).then(res => {
-                    if(res.code===200) {
+                    if(res.code==200 && res.content) {
                         this.loginInfo.id = res.content.id;
                         this.loginInfo.userName = res.content.userName;
                         this.isLogin = true;
@@ -132,6 +149,7 @@
                 this.isLogin = false;
                 this.loginInfo.id="";
                 this.loginInfo.userName="";
+                this.SIGN_OUT();
                 closeDialog();
             },
             loginClick(){
@@ -141,8 +159,11 @@
                 this.registerOff=true;//默认页面不显示为false,点击按钮将这个属性变成true
             },
             closeDialog(){
-                this.loginInfo.password="";
-                this.loginInfo.password_2="";
+                this.loginInfo.password = "";
+                this.password_2 = "";
+                if(!this.isLogin){
+                    this.loginInfo.userName = "";
+                }
             }
         },
         computed: {
@@ -158,6 +179,9 @@
                     this.isCollapsed ? 'collapsed-menu' : ''
                 ]
             }
+        },
+        created() {
+            this.RE_FLASH();
         },
         watch: {
 
