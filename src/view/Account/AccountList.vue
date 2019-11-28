@@ -202,8 +202,6 @@
                     if(res.code == 200) {
                         this.isAdd = false;
                         this.getData();
-                    }else{
-                        alert(res.msg);
                     }
                 }).catch(err => {
                     throw new Error(err)

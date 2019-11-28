@@ -146,6 +146,19 @@
                 })
             },
             logout(){
+                ajax.post('http://localhost:9001/jtds/logout', {
+                    ...this.loginInfo
+                }).then(res => {
+                    if(res.code = 200) {
+                        this.clearLoginInfo()
+                    }else{
+                        alert(res.msg);
+                    }
+                }).catch(err => {
+                    throw new Error(err)
+                })
+            },
+            clearLoginInfo(){
                 this.isLogin = false;
                 this.loginInfo.id="";
                 this.loginInfo.userName="";

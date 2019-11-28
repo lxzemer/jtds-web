@@ -34,7 +34,7 @@
             </div>
         </Card>
         <div style="width: 90%;" align="center">
-            <Button type="primary" style="width: 100px;" @click="queryPayAccount()">结&nbsp;&nbsp;&nbsp;&nbsp;算</Button>
+            <Button type="primary" style="width: 100px;" @click="sudoPayAccount()">结&nbsp;&nbsp;&nbsp;&nbsp;算</Button>
         </div>
 
     </div>
@@ -139,6 +139,16 @@
             },
             remove(obj, index) {
                 this.data1.splice(index, 1);
+            },
+            sudoPayAccount(){
+                ajax.get('http://localhost:9001/jtds/sudoPayAccount', {
+                }).then(res => {
+                    if (res.code = 200) {
+                       this.getData();
+                    }
+                }).catch(err => {
+                    throw new Error(err);
+                })
             }
         },
         created() {

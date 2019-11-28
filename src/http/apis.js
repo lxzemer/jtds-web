@@ -7,7 +7,6 @@
  */
 import axios from 'axios'
 import route from './../router'
-import Qs from 'qs'
 // 全局显示通知
 import { Notice } from 'iview'
 import LoginSte from "../canvas/modules/login";
@@ -80,7 +79,9 @@ export default {
     },
     // 会话post请求
     nlPost(url, param) {
-        param.userId = LoginSte.loginInfo.id;
+        param.userId = "";
+        if(LoginSte.loginInfo.id)
+            param.userId = LoginSte.loginInfo.id;
         return new Promise((resolve, reject) => {
             axios({
                 method: 'post',
@@ -88,7 +89,7 @@ export default {
                 params: param,
             }).then((res) => {
                 if(res.status === 200) {
-                    resolve(res.data)
+                    resolve(res.data);
                 } else {
                     checkStatus(res)
                 }
