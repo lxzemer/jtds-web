@@ -110,7 +110,8 @@ const MenuList = () => {
                     hasChild: false,
                     parentId: '1002'
                 }]
-            },  {
+            }
+            /*,  {
                 id: '1003',
                 parentsId: ['1003'],
                 menuUrl: '',
@@ -214,7 +215,7 @@ const MenuList = () => {
                 title: 'github',
                 icon: 'logo-github',
                 hasChild: false
-            }
+            }*/
         ]
     }
 };

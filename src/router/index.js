@@ -17,7 +17,8 @@ export default new Router({
                   path: '/home',
                   name: 'home',
                   component: () => import('@/view/Home')
-              }, { // 个人信息页面
+              },
+              /*{ // 个人信息页面
                   path: '/basicInfo',
                   name: 'basicInfo',
                   component: () => import('@/view/BasicInfo')
@@ -25,7 +26,8 @@ export default new Router({
                   path: '/video',
                   name: 'video',
                   component: () => import('@/view/Video')
-              }, { // 账单列表
+              },*/
+              { // 账单列表
                   path: '/AccountList',
                   name: 'AccountList',
                   component: () => import('@/view/Account/AccountList.vue')
@@ -33,7 +35,8 @@ export default new Router({
                   path: '/PayInfoAccount',
                   name: 'PayInfoAccount',
                   component: () => import('@/view/Account/PayInfoAccount.vue')
-              }, { // github地址
+              }
+              /*,{ // github地址
                   path: '/github',
                   name: 'github',
                   component: () => import('@/view/Github')
@@ -65,7 +68,7 @@ export default new Router({
                   path: '/weixin',
                   name: 'weixin',
                   component: () => import('@/view/WeiXin/WeiXin')
-              }
+              }*/
           ]
       }, { // 404
           path: '/404',

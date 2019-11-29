@@ -10,8 +10,6 @@
                        <div>
                            <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '0 20px'}" type="md-menu" size="24"></Icon>
                            <span class="font14">{{title.title}}</span>
-                           &nbsp;&nbsp;&nbsp;&nbsp;
-                           <ColorPicker v-model="themeBg" alpha v-show="!isCollapsed" @on-change="changeThemeColor"/>
                        </div>
                        <div style="margin-right: 30px;">
                            <div v-show="!this.isLogin">
