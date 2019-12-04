@@ -22,8 +22,8 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST // 要想IP地址訪問要將自己的地址改成自己IP地址
-    port: 8090, //  這裡修改成自己想要的端口號（不要和後台重複）
+    host: '0.0.0.0', // can be overwritten by process.env.HOST // 要想IP地址訪問要將自己的地址改成自己IP地址
+    port: 8080, //  這裡修改成自己想要的端口號（不要和後台重複）
     autoOpenBrowser: true, // 指令后自動展示到頁面上
     errorOverlay: true,
     notifyOnErrors: true,
@@ -55,7 +55,6 @@ module.exports = {
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
-
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
