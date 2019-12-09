@@ -72,6 +72,10 @@ const il8n = new VueI18n({
 // 请求
 window.ajax = ajax;
 Vue.prototype.$echarts = echarts
+
+import global_msg from './canvas/global.js'   //注意文件路径，实际路径以项目目录结构为准
+Vue.prototype.$global = global_msg;
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

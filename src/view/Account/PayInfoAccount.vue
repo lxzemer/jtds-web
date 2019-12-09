@@ -103,7 +103,7 @@
                     ...this.searchInfo
                 };
                 this.config.loading = true;
-                ajax.get('http://localhost:9001/jtds/queryPayAccount', {
+                ajax.get(this.$global.transType+this.$global.host+'/jtds/queryPayAccount', {
                     ...data
                 }).then(res => {
                     if (res.code = 200) {
@@ -141,7 +141,7 @@
                 this.data1.splice(index, 1);
             },
             sudoPayAccount(){
-                ajax.get('http://localhost:9001/jtds/sudoPayAccount', {
+                ajax.get(this.$global.transType+this.$global.host+'/jtds/sudoPayAccount', {
                 }).then(res => {
                     if (res.code = 200) {
                        this.getData();

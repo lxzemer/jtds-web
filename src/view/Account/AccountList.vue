@@ -182,7 +182,7 @@
             },
             queryUserName: function() {
                 let self = this;
-                ajax.get('http://localhost:9001/jtds/queryUserName', {
+                ajax.get(this.$global.transType+this.$global.host+'/jtds/queryUserName', {
                 }).then(res => {
                     if (res.code = 200) {
                         let array = res.content;
@@ -196,7 +196,7 @@
             },
             addPayInfo: function() {
                 this.payInfo.involveUserId = this.userIds.join(',');
-                ajax.nlPost('http://localhost:9001/jtds/addPayInfo', {
+                ajax.nlPost(this.$global.transType+this.$global.host+'/jtds/addPayInfo', {
                     ...this.payInfo
                 }).then(res => {
                     if(res.code == 200) {
@@ -222,7 +222,7 @@
                     ...this.searchInfo
                 };
                 this.config.loading = true;
-                ajax.get('http://localhost:9001/jtds/queryPayInfo', {
+                ajax.get(this.$global.transType+this.$global.host+'/jtds/queryPayInfo', {
                     ...data
                 }).then(res => {
                     if (res.code = 200) {

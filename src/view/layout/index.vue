@@ -107,7 +107,7 @@
                 this.$refs['sideRoute'].toggleCollapse();
             },
             login(){
-                ajax.post('http://localhost:9001/jtds/login', {
+                ajax.post(this.$global.transType+this.$global.host+'/jtds/login', {
                     ...this.loginInfo
                 }).then(res => {
                     if(res.code = 200) {
@@ -128,7 +128,7 @@
                     alert("密码不一致");
                     return;
                 }
-                ajax.post('http://localhost:9001/jtds/register', {
+                ajax.post(this.$global.transType+this.$global.host+'/jtds/register', {
                     ...this.loginInfo
                 }).then(res => {
                     if(res.code==200 && res.content) {
@@ -144,7 +144,7 @@
                 })
             },
             logout(){
-                ajax.post('http://localhost:9001/jtds/logout', {
+                ajax.post(this.$global.transType+this.$global.host+'/jtds/logout', {
                     ...this.loginInfo
                 }).then(res => {
                     if(res.code = 200) {
