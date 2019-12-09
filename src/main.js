@@ -37,10 +37,6 @@ import TableComponent from '@/components/Table'
 import PageComponent from '@/components/Page'
 import MessageAlert from '@/components/MessageAlert'
 import MessageTip from '@/components/MessageTip'
-import PersonCard from '@/components/PersonCard'
-import Cropper from '@/components/Cropper'
-import ThEditor from '@/components/Editor'
-import ThMarkdown from '@/components/Markdown'
 
 // 导入语言包
 import message from '@/lang'
@@ -63,10 +59,6 @@ Vue.component(TableComponent.name, TableComponent)
 Vue.component(PageComponent.name, PageComponent)
 Vue.component(MessageAlert.name, MessageAlert)
 Vue.component(MessageTip.name, MessageTip)
-Vue.component(PersonCard.name, PersonCard)
-Vue.component(Cropper.name, Cropper)
-Vue.component(ThEditor.name, ThEditor)
-Vue.component(ThMarkdown.name, ThMarkdown)
 
 // 引入mockjs
 require('./mock/mock.js')
